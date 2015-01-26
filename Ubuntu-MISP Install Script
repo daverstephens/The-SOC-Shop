@@ -1,5 +1,5 @@
 #/!bin/sh
-## $Id: ubuntu-misp.sh 07/01/2015 $
+## $Id: ubuntu-misp.sh 26/01/2015 $
 ##
 ## script to install MISP on debian/ubuntu 14.04.1
 ##
