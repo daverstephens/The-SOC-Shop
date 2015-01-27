@@ -19,7 +19,7 @@
 ##
 ## When the script has completed, check ubuntu-misp.log for errors
 ## and then complete the final activities listed at the end of this script
-# Declare variables
+# Declare variables - Make sure to change to match your needs
 #
 # MySQL Root User
 MySQLRUser=root
