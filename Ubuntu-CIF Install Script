@@ -478,7 +478,7 @@ EOF
 #
 # SNMP Agent config if you want to monitor your server
 ##	cat > /etc/snmp/snmpd.conf <<EOF
-## rocommunity AA_Monitor
+## rocommunity public
 ## syslocation "Whatever"
 ## syscontact whatever@whatever.com
 ## sysname whatever.whatever.com
