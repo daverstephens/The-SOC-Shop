@@ -1,0 +1,44 @@
+#/!bin/sh
+## $Id: feed-pub.sh 04/11/2014 $
+##
+## script to generate CIF feeds on debian/ubuntu 14:04
+##
+## Schedule in cron
+
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/botnet -c 95 -p csv > /var/www/html/files/inf-bot.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/scan -c 95 -p csv > /var/www/html/files/inf-scn.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/phishing -c 95 -p csv > /var/www/html/files/inf-psh.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/malware -c 95 -p csv > /var/www/html/files/inf-mal.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/spam -c 95 -p csv > /var/www/html/files/inf-spm.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/spamvertising -c 95 -p csv > /var/www/html/files/inf-spv.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/suspicious -c 95 -p csv > /var/www/html/files/inf-sus.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/whitelist -c 95 -p csv > /var/www/html/files/inf-wht.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/warez -c 95 -p csv > /var/www/html/files/inf-wrz.csv
+/usr/bin/perl /opt/cif/bin/cif -q infrastructure/fastflux -c 95 -p csv > /var/www/html/files/inf-flx.csv
+
+/usr/bin/perl /opt/cif/bin/cif -q domain/botnet -c 95 -p csv > /var/www/html/files/dom-bot.csv
+/usr/bin/perl /opt/cif/bin/cif -q domain/phishing -c 95 -p csv > /var/www/html/files/dom-psh.csv
+/usr/bin/perl /opt/cif/bin/cif -q domain/malware -c 95 -p csv > /var/www/html/files/dom-mal.csv
+/usr/bin/perl /opt/cif/bin/cif -q domain/spam -c 95 -p csv > /var/www/html/files/dom-spm.csv
+/usr/bin/perl /opt/cif/bin/cif -q domain/spamvertising -c 95 -p csv > /var/www/html/files/dom-spv.csv
+/usr/bin/perl /opt/cif/bin/cif -q domain/suspicious -c 95 -p csv > /var/www/html/files/dom-sus.csv
+/usr/bin/perl /opt/cif/bin/cif -q domain/whitelist -c 95 -p csv > /var/www/html/files/dom-wht.csv
+/usr/bin/perl /opt/cif/bin/cif -q domain/fastflux -c 95 -p csv > /var/www/html/files/dom-flx.csv
+
+/usr/bin/perl /opt/cif/bin/cif -q email/phishing -c 95 -p csv > /var/www/html/files/eml-psh.csv
+/usr/bin/perl /opt/cif/bin/cif -q email/spam -c 95 -p csv > /var/www/html/files/eml-spm.csv
+/usr/bin/perl /opt/cif/bin/cif -q email/spamvertising -c 95 -p csv > /var/www/html/files/eml-spv.csv
+/usr/bin/perl /opt/cif/bin/cif -q email/suspicious -c 95 -p csv > /var/www/html/files/eml-sus.csv
+/usr/bin/perl /opt/cif/bin/cif -q email/registrant -c 95 -p csv > /var/www/html/files/eml-reg.csv
+/usr/bin/perl /opt/cif/bin/cif -q email/whitelist -c 95 -p csv > /var/www/html/files/eml-wht.csv
+
+/usr/bin/perl /opt/cif/bin/cif -q url/botnet -c 95 -p csv > /var/www/html/files/url-bot.csv
+/usr/bin/perl /opt/cif/bin/cif -q url/phishing -c 95 -p csv > /var/www/html/files/url-psh.csv
+/usr/bin/perl /opt/cif/bin/cif -q url/malware -c 95 -p csv > /var/www/html/files/url-mal.csv
+/usr/bin/perl /opt/cif/bin/cif -q url/spam -c 95 -p csv > /var/www/html/files/url-spm.csv
+/usr/bin/perl /opt/cif/bin/cif -q url/spamvertising -c 95 -p csv > /var/www/html/files/url-spv.csv
+/usr/bin/perl /opt/cif/bin/cif -q url/suspicious -c 95 -p csv > /var/www/html/files/url-sus.csv
+/usr/bin/perl /opt/cif/bin/cif -q url/whitelist -c 95 -p csv > /var/www/html/files/url-wht.csv
+
+/usr/bin/perl /opt/cif/bin/cif -q malware/md5 -c 95 -p csv > /var/www/html/files/mal-md5.csv
+/usr/bin/perl /opt/cif/bin/cif -q malware/sha1 -c 95 -p csv > /var/www/html/files/mal-sha.csv
