@@ -16,6 +16,8 @@
 # If server is hosted behind NAT then change $wgServer variable 
 # to reflect public address
 #	sed -i 's/http:\/\/10\.0\.1\.1/http:\/\/172\.21\.1\.1/g' /var/www/html/mediawiki/LocalSettings.php
+# Install git
+	apt-get install git
 # Install LinkTitles v3.0.1
 	cd /tmp
 	wget https://github.com/bovender/LinkTitles/blob/master/release/LinkTitles-3.0.1.tar.gz?raw=true
