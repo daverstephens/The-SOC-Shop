@@ -44,7 +44,7 @@ EOF
 	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/AdminLinks.git
 # Update localsettings.php
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
-require_once( "$IP/extensions/AdminLinks/AdminLinks.php" );
+require_once( "\$IP/extensions/AdminLinks/AdminLinks.php" );
 EOF
 # Install 'Replace Text' - extension to MediaWiki that provides a special page
 # to allow administrators to do a global string find-and-replace on both the 
@@ -52,7 +52,7 @@ EOF
 	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/ReplaceText.git
 # Update localsettings.php
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
-require_once( "$IP/extensions/ReplaceText/ReplaceText.php" );
+require_once( "\$IP/extensions/ReplaceText/ReplaceText.php" );
 EOF
 # Install 'External Data' - extension allows MediaWiki pages to retrieve, filter
 # and format structured data from one or more sources. These sources can include
@@ -61,7 +61,7 @@ EOF
 	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/ExternalData.git
 # Update localsettings.php
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
-include_once( "$IP/extensions/ExternalData/ExternalData.php" );
+include_once( "\$IP/extensions/ExternalData/ExternalData.php" );
 EOF
 # Install 'Semantic Drilldown' - extension to MediaWiki that provides a page 
 # for drilling down through a site's data, using categories and filters on semantic
@@ -69,14 +69,14 @@ EOF
 	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/SemanticDrilldown.git
 # Update localsettings.php
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
-include_once( "$IP/extensions/SemanticDrilldown/SemanticDrilldown.php" );
+include_once( "\$IP/extensions/SemanticDrilldown/SemanticDrilldown.php" );
 EOF
 # Install 'Semantic Forms is an extension to MediaWiki that allows users to add
 # edit and query data using forms.
 	git clone https://git.wikimedia.org/git/mediawiki/extensions/SemanticForms.git
 # Update localsettings.php
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
-include_once( "$IP/extensions/SemanticForms/SemanticForms.php" );
+include_once( "\$IP/extensions/SemanticForms/SemanticForms.php" );
 EOF
 # Install 'Semantic Compound Queries' - extension to MediaWiki, meant to work
 # with Semantic MediaWiki, that allows for the display of more than one SMW 
@@ -84,5 +84,5 @@ EOF
 	git clone https://gerrit.wikimedia.org/r/p/mediawiki/extensions/SemanticCompoundQueries.git
 # Update localsettings.php
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
-require_once( "$IP/extensions/SemanticCompoundQueries/SemanticCompoundQueries.php" );
+require_once( "\$IP/extensions/SemanticCompoundQueries/SemanticCompoundQueries.php" );
 EOF
