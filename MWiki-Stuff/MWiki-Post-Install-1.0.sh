@@ -4,8 +4,9 @@
 ## daverstephens@gmail.com
 ##
 ## script to finish install MediaWiki 1.24.1 on Ubuntu 14.04
+## Add multiple extensions for SemanticMediaWiki operation
 ##
-## $ sudo sh -x mwp.sh 2>&1 | tee mwiki-post-install.log
+## $ sudo sh -x mwiki-post-install.sh 2>&1 | tee mwiki-post-install.log
 ##
 ## Script should be run after MWiki-Install.sh 
 ## and following webgui set-up of Mediawiki
@@ -15,7 +16,7 @@
 	rm -R /var/www/html/mediawiki/mw-config
 # If server is hosted behind NAT then change $wgServer variable 
 # to reflect public address
-	sed -i 's/http:\/\/10\.0\.1\.18/http:\/\/172\.21\.1\.100/g' /var/www/html/mediawiki/LocalSettings.php
+#	sed -i 's/http:\/\/x\.x\.x\.x/http:\/\/x\.x\.x\.x/g' /var/www/html/mediawiki/LocalSettings.php
 # Install Git
 	env DEBIAN_FRONTEND=noninteractive apt-get -y install git
 # Install LinkTitles v3.0.1
@@ -31,18 +32,13 @@ require_once( "\$IP/extensions/LinkTitles/LinkTitles.php" );
 EOF
 # Install Semantic Media Wiki - Open-source extension to MediaWiki
 # that lets you store and query data within the wiki's pages.
-#	php -r "readfile('https://getcomposer.org/installer');" | php
-#	php composer.phar require mediawiki/semantic-media-wiki "~2.0"
-#	php /var/www/html/mediawiki/maintenance/update.php
-#
-# We're going to install from tar as composer seems to cause an issue but not sure why yet.
-	wget -O Semantic.tgz "http://downloads.sourceforge.net/project/semediawiki/semediawiki/Semantic%20MediaWiki%202.1/Semantic%20MediaWiki%202.1%20%28%2Bdependencies%29.tgz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fsemediawiki%2Ffiles%2Fsemediawiki%2FSemantic%2520MediaWiki%25202.1%2F&ts=1423755108&use_mirror=cznic"
-	tar xzf Semantic.tgz
-	rm Semantic.tgz
-	mv /tmp/SemanticMediaWiki /var/www/html/mediawiki/extensions
+	curl -sS https://getcomposer.org/installer | php
+	mv composer.phar /usr/local/bin/composer
+	cd /var/www/html/mediawiki
+	composer require mediawiki/semantic-media-wiki "~2.1"
+	php /var/www/html/mediawiki/maintenance/update.php
 # Update localsettings.php
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
-require_once ( "\$IP/extensions/SemanticMediaWiki/SemanticMediaWiki.php" );
 enableSemantics( '172.21.1.100' );
 EOF
 # Install 'Admin Links' - Extension to MediaWiki that defines a special page,
