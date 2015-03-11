@@ -6,13 +6,13 @@
 ## Authored by daverstephens@gmail.com
 ##
 ## https://github.com/daverstephens/The-SOC-Shop
-curl -H "Authorization: AuthKey" http://x.x.x.x/attributes/text/download/md5 > /tmp/md5.txt
-curl -H "Authorization: AuthKey" http://x.x.x.x/attributes/text/download/sha1 > /tmp/sha1.txt
-curl -H "Authorization: AuthKey" http://x.x.x.x/attributes/text/download/ip-src > /tmp/ip-src.txt
-curl -H "Authorization: AuthKey" http://x.x.x.x/attributes/text/download/ip-dst > /tmp/ip-dst.txt
-curl -H "Authorization: AuthKey" http://x.x.x.x/attributes/text/download/hostname > /tmp/hostname.txt
-curl -H "Authorization: AuthKey" http://x.x.x.x/attributes/text/download/domain > /tmp/domain.txt
-curl -H "Authorization: AuthKey" http://x.x.x.x/attributes/text/download/url > url.txt
+/usr/bin/curl -H "Authorization: ***INSERT AUTHKEY HERE***" http://X.X.X.X/attributes/text/download/md5/ > /home/cif/misp/md5.txt
+/usr/bin/curl -H "Authorization: ***INSERT AUTHKEY HERE***" http://X.X.X.X/attributes/text/download/sha1/ > /home/cif/misp/sha1.txt
+/usr/bin/curl -H "Authorization: ***INSERT AUTHKEY HERE***" http://X.X.X.X/attributes/text/download/ip-src/ > /home/cif/misp/ip-src.txt
+/usr/bin/curl -H "Authorization: ***INSERT AUTHKEY HERE***" http://X.X.X.X/attributes/text/download/ip-dst/ > /home/cif/misp/ip-dst.txt
+/usr/bin/curl -H "Authorization: ***INSERT AUTHKEY HERE***" http://X.X.X.X/attributes/text/download/hostname/ > /home/cif/misp/hostname.txt
+/usr/bin/curl -H "Authorization: ***INSERT AUTHKEY HERE***" http://X.X.X.X/attributes/text/download/domain/ > /home/cif/misp/domain.txt
+/usr/bin/curl -H "Authorization: ***INSERT AUTHKEY HERE***" http://X.X.X.X/attributes/text/download/url/ > url.txt
 ##
 ## Options for plain txt export are as follows
 ##
