@@ -3,7 +3,7 @@
 ##
 ## daverstephens@gmail.com
 ##
-## script to install MediaWiki 1.24.1 on Ubuntu 14.04
+## script to install MediaWiki 1.25.1 on Ubuntu 14.04
 ##
 ## $ sudo sh -x MWiki-Install.sh 2>&1 | tee MWiki-Install.log
 ##
@@ -13,12 +13,12 @@
 ##
 # Install latest updates
 	env DEBIAN_FRONTEND=noninteractive apt-get -y update && apt-get -y upgrade
-# Download and install MediaWiki 1.24.1
+# Download and install MediaWiki 1.25.1
 	cd /tmp
-	wget http://releases.wikimedia.org/mediawiki/1.24/mediawiki-1.24.1.tar.gz
-	tar zxvf mediawiki-1.24.1.tar.gz
+	wget http://releases.wikimedia.org/mediawiki/1.25/mediawiki-1.25.1.tar.gz
+	tar zxvf mediawiki-1.25.1.tar.gz
 	mkdir -p /var/www/html/mediawiki
-	mv mediawiki-1.24.1/* /var/www/html/mediawiki
+	mv mediawiki-1.25.1/* /var/www/html/mediawiki
 	chown www-data:www-data /var/www/html/mediawiki
 	chmod a+w /var/www/html/mediawiki/images
 # Create MySQL Database
