@@ -1,9 +1,9 @@
 #/!bin/sh
-## $Id: mwiki-post-install.sh 12/02/2015 $
+## $Id: mwiki-post-install.sh 02/06/2015 $
 ##
 ## daverstephens@gmail.com
 ##
-## script to finish install MediaWiki 1.24.1 on Ubuntu 14.04
+## script to finish install MediaWiki 1.25.1 on Ubuntu 14.04
 ## Add multiple extensions for SemanticMediaWiki operation
 ##
 ## $ sudo sh -x mwiki-post-install.sh 2>&1 | tee mwiki-post-install.log
