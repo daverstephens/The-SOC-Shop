@@ -1,9 +1,9 @@
 #/!bin/sh
-## $Id: mwiki-post-install.sh 12/02/2015 $
+## $Id: mwiki-post-install.sh 02/06/2015 $
 ##
 ## daverstephens@gmail.com
 ##
-## script to finish install MediaWiki 1.24.1 on Ubuntu 14.04
+## script to finish install MediaWiki 1.25.1 on Ubuntu 14.04
 ## Add multiple extensions for SemanticMediaWiki operation
 ##
 ## $ sudo sh -x mwiki-post-install.sh 2>&1 | tee mwiki-post-install.log
@@ -21,8 +21,8 @@
 	env DEBIAN_FRONTEND=noninteractive apt-get -y install git
 # Install LinkTitles v3.0.1
 	cd /tmp
-	wget https://github.com/bovender/LinkTitles/blob/master/release/LinkTitles-3.0.1.tar.gz?raw=true
-	mv LinkTitles-3.0.1.tar.gz?raw=true Linktitles.tar.gz
+	wget https://github.com/bovender/LinkTitles/blob/master/release/LinkTitles-3.1.0.tar.gz?raw=true
+	mv LinkTitles-3.1.0.tar.gz?raw=true Linktitles.tar.gz
 	tar xvf Linktitles.tar.gz
 	rm Linktitles.tar.gz
 	mv /tmp/LinkTitles /var/www/html/mediawiki/extensions
@@ -35,7 +35,7 @@ EOF
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar /usr/local/bin/composer
 	cd /var/www/html/mediawiki
-	composer require mediawiki/semantic-media-wiki "~2.1"
+	composer require mediawiki/semantic-media-wiki "~2.2"
 	php /var/www/html/mediawiki/maintenance/update.php
 # Update localsettings.php
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
