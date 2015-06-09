@@ -32,14 +32,15 @@ require_once( "\$IP/extensions/LinkTitles/LinkTitles.php" );
 EOF
 # Install Semantic Media Wiki - Open-source extension to MediaWiki
 # that lets you store and query data within the wiki's pages.
-	curl -sS https://getcomposer.org/installer | php
-	mv composer.phar /usr/local/bin/composer
 	cd /var/www/html/mediawiki
-	composer require mediawiki/semantic-media-wiki "~2.2"
+	curl -sS https://getcomposer.org/installer | php
+	php composer.phar update
+	php composer.phar require mediawiki/semantic-media-wiki "~2.2"
 	php /var/www/html/mediawiki/maintenance/update.php
 # Update localsettings.php
+# Change yourdomain.org to the required IP or Domain name
 	cat >> /var/www/html/mediawiki/LocalSettings.php <<EOF
-enableSemantics( '172.21.1.100' );
+enableSemantics( 'youdomain.org' );
 EOF
 # Install 'Admin Links' - Extension to MediaWiki that defines a special page,
 # "Special:AdminLinks" that holds links meant to be helpful for wiki administrators
