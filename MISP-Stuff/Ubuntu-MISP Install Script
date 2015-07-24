@@ -1,7 +1,7 @@
 #/!bin/sh
-## $Id: ubuntu-misp.sh 26/01/2015 $
+## $Id: ubuntu-misp.sh 18/06/2015 $
 ##
-## script to install MISP on debian/ubuntu 14.04.1
+## script to install MISP on debian/ubuntu 14.04.2
 ##
 ## Authored by daverstephens@gmail.com
 ##
@@ -11,7 +11,7 @@
 ## which should include OpenSSH, LAMP and Mail Server options
 ## selected during install
 ##
-## Tested against MISP 2.3 (Hotfix 40)
+## Tested against MISP 2.3 (Hotfix 84)
 ##
 ## Run the script as the standard user with the command below
 ##
@@ -29,8 +29,8 @@ MySQLUUser=mispadmin
 MySQLUPass=password
 # MISP DB name
 MISPDB=misp
-# Encryption Salt - To be replaced with 32 character string
-Salt=1234567890abcdefghijklmnopqrstuv
+# Encryption Salt generated based on nano second - Courtesy of Giacomo Miliani :)
+Salt=$(date +%N | md5sum | cut -b -32)
 # Organisational name
 Orgname=Test.com
 # MySQL port
