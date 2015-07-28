@@ -23,11 +23,13 @@
 	apt-get -y update && apt-get -y upgrade
 ## Install dependencies
 	env DEBIAN_FRONTEND=noninteractive apt-get -y install unzip build-essential python-dev python-pip git automake libtool libimage-exiftool-perl swig libssl-dev libfuzzy-dev
-## Set build paths
+## Set build variables
+printf "Enter the user who will run viper\n"
+  read ViperUser
 printf "Enter the full path to your temporary build directory\n"
   read TempPath
   [ ! -d $TempPath  ] && mkdir $TempPath
-printf "Enter the full path to your desired Viper directory\nFor example \\\home\\\user\n"
+printf "Enter the full path to your desired Viper directory\nFor example /home/user\n"
   read ViperPath
   [ ! -d $ViperPath  ] && mkdir $ViperPath
 cd $TempPath
@@ -65,9 +67,11 @@ git clone https://github.com/smarnach/pyexiftool
 ## Install Viper
 cd $ViperPath
   git clone https://github.com/botherder/viper
+  chown -R $ViperUser:$ViperUser $ViperPath/viper 
   cd viper
   pip install -r requirements.txt
+  ldconfig
 ## Test Install
 yara --help|grep -q vmalvarez||echo "Yara :Install seems to have failed";
 ssdeep -h|grep -q Kornblum||echo "SSDeep :Install seems to have failed";
-## Run Viper with './viper.py'
+## From the viper directory run Viper with './viper.py' for commandline interface or './web.py' for web interface
