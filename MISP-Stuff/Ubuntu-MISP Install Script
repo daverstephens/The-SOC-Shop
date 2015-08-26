@@ -1,5 +1,5 @@
 #/!bin/sh
-## $Id: ubuntu-misp.sh 18/06/2015 $
+## $Id: ubuntu-misp.sh 25/08/2015 $
 ##
 ## script to install MISP on debian/ubuntu 14.04.2
 ##
@@ -23,10 +23,12 @@
 #
 # MySQL Root User
 MySQLRUser=root
-MySQLRPass=password
+MySQLRPass=$(cat /dev/urandom| tr -dc 'a-zA-Z0-9' | fold -w 30| head -n 1)
+echo MySQL Root User: $MySQLRUser with password $MySQLRPass
 # MySQL Misp User
 MySQLUUser=mispadmin
-MySQLUPass=password
+MySQLUPass=$(cat /dev/urandom| tr -dc 'a-zA-Z0-9' | fold -w 30| head -n 1)
+echo MySQL MISP User: $MySQLUUser with password $MySQLUPass
 # MISP DB name
 MISPDB=misp
 # Encryption Salt generated based on nano second - Courtesy of Giacomo Miliani :)
@@ -36,11 +38,11 @@ Orgname=Test.com
 # MySQL port
 DB_Port=3306
 # Admin Email Address to be used
-AdminEmail=admin@Test.com
+AdminEmail=admin@test.com
 # Base URL for the MISP application (Server IP or FQDN)
 BaseURL=http://192.168.1.1
 # GnuPG Certificate Email, GnuPG Home dir and GnuPG password
-GnuPGEmail=admin@Test.com
+GnuPGEmail=admin@test.com
 GnuPGHomeDir=/var/www/MISP/.gnupg
 GnuPGPassword=password
 # Install latest updates
@@ -73,7 +75,7 @@ git submodule update
 # Once done, install CakeResque along with its dependencies if you intend to use the built in background jobs:
 cd /var/www/MISP/app
 curl -s https://getcomposer.org/installer | php
-php composer.phar require --no-update kamisama/cake-resque:4.1.0
+php composer.phar require --no-update kamisama/cake-resque:4.1.2
 php composer.phar config vendor-dir Vendor
 php composer.phar install
 # CakeResque normally uses phpredis to connect to redis, but it has a (buggy) fallback connector through Redisent.
@@ -134,13 +136,10 @@ CakePlugin::loadAll(array(
 'CakeResque' => array('bootstrap' => true)
 ));
 EOF
-# Important! Change the salt key in /var/www/MISP/app/Config/config.php
-# The admin user account will be generated on the first login, make sure that the salt is changed before you create that user
-# If you forget to do this step, and you are still dealing with a fresh installation, just alter the salt,
-# delete the user from mysql and log in again using the default admin credentials (admin@admin.test / admin)
-# and make sure the file permissions are still OK
+#Replace default salt with auto-generated one
 sed -i "s/Rooraenietu8Eeyo<Qu2eeNfterd-dd+/$Salt/g" /var/www/MISP/app/Config/config.php
 sed -i "s/ORGNAME/$Orgname/g" /var/www/MISP/app/Config/config.php
+#Replace default admin email with the one configured in this script
 sed -i "s/email@address\.com/$AdminEmail/g" /var/www/MISP/app/Config/config.php
 sed -i "s,\x27baseurl\x27 => \x27\x27,\x27baseurl\x27 => \x27$BaseURL\x27,g" /var/www/MISP/app/Config/config.php
 sed -i "s,\x27email\x27 => \x27\x27,\x27email\x27 => \x27$GnuPGEmail\x27,g" /var/www/MISP/app/Config/config.php
