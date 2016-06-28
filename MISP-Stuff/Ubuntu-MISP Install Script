@@ -1,6 +1,8 @@
 #/!bin/sh
 ## $Id: ubuntu-misp.sh 25/08/2015 $
 ##
+## Retired in favour of https://github.com/da667/AutoMISP
+##
 ## script to install MISP on debian/ubuntu 14.04.2
 ##
 ## Authored by daverstephens@gmail.com
