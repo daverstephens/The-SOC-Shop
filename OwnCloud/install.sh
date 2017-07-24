@@ -2,7 +2,7 @@ sudo su
 # pico /etc/hosts
 #127.0.1.1 hostname
 apt-get update && apt-get upgrade && apt-get dist-upgrade
-sudo apt-get install apache2 mysql-server php php-bz2 php-curl php-gd php-imagick php-intl php-mbstring php-xml php-zip libapache2-mod-php php-mcrypt php-mysql
+sudo apt-get install apache2 mysql-server php php-bz2 php-curl php-gd php-imagick php-intl php-mbstring php-xml php-zip libapache2-mod-php php-mcrypt php-mysql php-imap php-ssh2 clamav clamav-daemon php-gmp
 cd /var/www/html
 sudo rm /var/www/html/index.html
 sudo wget https://download.owncloud.org/community/owncloud-10.0.2.tar.bz2
