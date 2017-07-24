@@ -32,10 +32,11 @@ sudo chown -R www-data:www-data /home/cloudshare
 # exit
 #
 sudo crontab -u www-data -e
-# */15  *  *  *  * php -f /var/www/owncloud/cron.php
+# */15  *  *  *  * php -f /var/www/html/cron.php
+#
 # Test for cron job
 crontab -u www-data -l
-# */15  *  *  *  * php -f /var/www/owncloud/cron.php
+# */15  *  *  *  * php -f /var/www/html/cron.php
 #
 # Then under 'General - Cron' set the system to use cron scheduler.
 # Enable HSTS
