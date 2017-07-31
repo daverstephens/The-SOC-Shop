@@ -10,3 +10,4 @@ cd spider*
 cat >> ./passwd <<EOF
 spiderfoot:spiderfoot
 EOF
+python ./sf.py 0.0.0.0:80
