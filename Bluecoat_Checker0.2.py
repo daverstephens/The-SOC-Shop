@@ -1,12 +1,5 @@
-#
-# This script will ask for an input file which it will 
-# check against a csv called 'TI_Request_DB.csv' and,
-# assuming the URL or IP from the input file doesn't
-# exist in the csv, it will submit it to Bluecoat and
-# return the site review categories for that IP or URL
-#
-
 import csv
+import re
 import requests
 from bs4 import BeautifulSoup
 from random import randint
@@ -20,20 +13,31 @@ Bluecoat_Tmp_List = []
 Seen_Before_List = []
 Output_List = []
 
+TI_Input_File = './domains.txt'
+
 # Function to check Bluecoat Sitereview
 def SiteReview(URL):
-    sleep(randint(4,10))
+#    sleep(randint(5,10))
     category_check = requests.post("http://sitereview.bluecoat.com/rest/categorization", data = {'url':URL})
     if category_check.status_code != 200:
         Processed_TI_List.append("{} could not be checked. Status {} was returned.".format(line, category_check.status_code))
     else:
         soup = BeautifulSoup(category_check.text, "lxml")
-        for category in soup.findAll('a'):
-            Processed_TI_List.append("{} is category {}".format(line, category.get_text()))
+        is_captcha_on_page = soup.findAll(text=re.compile('captcha'))
+        if not is_captcha_on_page:
+			for category in soup.findAll('a'):
+				Processed_TI_List.append("{} is category {}".format(line, category.get_text()))
+        else:
+			print("Captcha detected for {}. Re-enter URL once captcha resolved".format(line))
+			URL2 = raw_input('Re-Enter URL: ')
+			category_check = requests.post("http://sitereview.bluecoat.com/rest/categorization", data = {'url':URL2})
+			soup = BeautifulSoup(category_check.text, "lxml")
+			for category in soup.findAll('a'):
+				Processed_TI_List.append("{} is category {}".format(line, category.get_text()))
 
 # Input TI text file location
 
-TI_Input_File = raw_input("Enter the location of the Threat Intelligence input text file: eg ./threatintel.txt\n")
+# TI_Input_File = raw_input("Enter the location of the Threat Intelligence input text file: eg ./threatintel.txt\n")
 
 # Perform initial sift of intel data
 
