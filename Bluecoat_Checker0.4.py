@@ -1,3 +1,19 @@
+#
+# This script will take an input file called domains.txt
+# which it will check against a csv called 'TI_Request_DB.csv'
+# and, assuming the URL or IP from the input file doesn't
+# exist in the csv, it will submit it to Bluecoat and
+# return the site review categories for that IP or URL
+#
+#
+# IndexError: list index out of range
+# This error normally means there is a extra newline
+# at the end of the TI_Request_DB.csv
+# This seems to occur when the .csv is edited in a text
+# editor. Leave a single newline at the end of the file and 
+# the error should go away.
+#
+
 import csv
 import re
 import requests
@@ -17,7 +33,7 @@ TI_Input_File = './domains.txt'
 
 # Function to check Bluecoat Sitereview
 def SiteReview(URL):
-#    sleep(randint(5,10))
+    sleep(randint(5,10))
     category_check = requests.post("http://sitereview.bluecoat.com/rest/categorization", data = {'url':URL})
     if category_check.status_code != 200:
         Processed_TI_List.append("{} could not be checked. Status {} was returned.".format(line, category_check.status_code))
@@ -41,13 +57,14 @@ def SiteReview(URL):
 
 # Perform initial sift of intel data
 
-with open(TI_Input_File) as infile:
-    for line in infile:
-        line = line.lower()
-        replacements = {'[.]':'.'}
-        for src, target in replacements.iteritems():
-            line = line.replace(src, target)
-        TI_Raw_Data_List.append(line.rstrip())
+with open(TI_Input_File,'rw') as file:
+    for line in file:
+        if not line.isspace():
+            line = line.lower()
+            replacements = {'[.]':'.'}
+            for src, target in replacements.iteritems():
+                line = line.replace(src, target)
+            TI_Raw_Data_List.append(line.rstrip())
 
 with open('TI_Request_DB.csv', 'r') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
