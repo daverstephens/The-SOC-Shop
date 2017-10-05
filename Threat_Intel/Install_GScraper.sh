@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-apt-get install curl
+apt-get install curl python-pip selenium
 
 # Versions
 CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`
