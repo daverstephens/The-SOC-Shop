@@ -1,4 +1,4 @@
-#requirements: selenium wget python 2.7
+#requirements: selenium wget python2.7 Geckodriver
  
 import time
 import sys
