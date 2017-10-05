@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
  
 def googlescrape(str):
-    browser = webdriver.Firefox()
+    browser = webdriver.Chrome()
     browser.get(url)
     time.sleep(3) # sleep for 5 seconds so you can see the results
  
