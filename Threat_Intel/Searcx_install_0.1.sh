@@ -12,5 +12,5 @@ sed -i -e "s/ultrasecretkey/`openssl rand -hex 16`/g" searx/settings.yml
 #bind_address : “127.0.0.1”
 #
 # To start
-#cd ~/searx/searx/searx
+#cd ~/searx/searx
 #python webapp.py
