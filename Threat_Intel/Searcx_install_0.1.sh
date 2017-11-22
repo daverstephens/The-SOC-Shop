@@ -3,7 +3,7 @@ sudo apt-get install git build-essential libxslt-dev python-dev python-virtualen
 cd /usr/local
 git clone https://github.com/asciimoo/searx.git
 cd searx
-./manage.sh update_packages
+sudo ./manage.sh update_packages
 sed -i -e "s/ultrasecretkey/`openssl rand -hex 16`/g" searx/settings.yml
 # Edit address to bind to if required
 #
