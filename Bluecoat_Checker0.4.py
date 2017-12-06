@@ -41,15 +41,21 @@ def SiteReview(URL):
         soup = BeautifulSoup(category_check.text, "lxml")
         is_captcha_on_page = soup.findAll(text=re.compile('captcha'))
         if not is_captcha_on_page:
+			cat_list = ''
 			for category in soup.findAll('a'):
-				Processed_TI_List.append("{} is category {}".format(line, category.get_text()))
+				cat_list += category.get_text()
+				cat_list += ', '
+			Processed_TI_List.append("{} is category {}".format(line, cat_list))
         else:
 			print("Captcha detected for {}. Re-enter URL once captcha resolved".format(line))
 			URL2 = raw_input('Re-Enter URL: ')
 			category_check = requests.post("http://sitereview.bluecoat.com/rest/categorization", data = {'url':URL2})
 			soup = BeautifulSoup(category_check.text, "lxml")
+			cat_list = ''
 			for category in soup.findAll('a'):
-				Processed_TI_List.append("{} is category {}".format(line, category.get_text()))
+				cat_list += category.get_text()
+				cat_list += ', '
+			Processed_TI_List.append("{} is category {}".format(line, cat_list))
 
 # Input TI text file location
 
@@ -61,7 +67,7 @@ with open(TI_Input_File,'rw') as file:
     for line in file:
         if not line.isspace():
             line = line.lower()
-            replacements = {'[.]':'.'}
+            replacements = {'[.]':'.','hxxp://':'','hxxps://':'','(.)':'.','http://':'','https://':''}
             for src, target in replacements.iteritems():
                 line = line.replace(src, target)
             TI_Raw_Data_List.append(line.rstrip())
