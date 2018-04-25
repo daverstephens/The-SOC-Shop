@@ -1,0 +1,36 @@
+# This works...
+# Debian 8.2 (Add 'vhv.enable = "TRUE"' to the Guest V/M .vmx file if built on ESXi)
+
+su root
+apt-get update
+apt-get upgrade
+apt-get install python-pip git python-crypto python-httplib2 python-jinja2 python-markupsafe python-paramiko python-selinux python-yaml libyaml-0-2 python-ecdsa
+pip install ansible==2.2.1.0
+wget https://releases.hashicorp.com/vagrant/2.0.4/vagrant_2.0.4_x86_64.deb
+dpkg -i *.deb
+echo "deb http://download.virtualbox.org/virtualbox/debian jessie contrib" >> /etc/apt/sources.list
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O-| apt-key add -
+apt-get update
+apt-get install virtualbox-5.1
+git clone https://github.com/quarkslab/irma
+cd irma
+cd ansible
+vagrant up
+
+# This does not
+# Debian 9.4 (Add 'vhv.enable = "TRUE"' to the Guest V/M .vmx file if built on ESXi)
+
+su root
+apt-get update
+apt-get upgrade
+apt-get install python-pip git ieee-data python-crypto python-httplib2 python-jinja2 python-kerberos python-markupsafe python-netaddr python-paramiko python-selinux python-xmltodict python-yaml
+wget https://releases.hashicorp.com/vagrant/2.0.4/vagrant_2.0.4_x86_64.deb
+dpkg -i *.deb
+echo "deb http://download.virtualbox.org/virtualbox/debian stretch contrib" >> /etc/apt/sources.list
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O-| apt-key add -
+apt-get update
+apt-get install virtualbox-5.1
+git clone https://github.com/quarkslab/irma
+cd irma
+cd ansible
+vagrant up
