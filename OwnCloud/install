@@ -12,8 +12,8 @@ sudo su
 #
 ## Add CertBot repo's
 #
-sudo apt-get install software-properties-common
-sudo add-apt-repository ppa:certbot/certbot
+apt-get install software-properties-common
+add-apt-repository ppa:certbot/certbot
 #
 ## Update apt lists & upgrade system
 #
@@ -21,37 +21,37 @@ apt-get update && apt-get upgrade && apt-get dist-upgrade
 #
 ## Add required packages
 #
-sudo apt-get install apache2 mysql-server sendmail-bin php php-bz2 php-curl php-gd php-imagick php-intl php-mbstring php-xml php-zip libapache2-mod-php php-mcrypt php-mysql php-imap php-ssh2 clamav clamav-daemon php-gmp python-certbot-apache
+apt-get install apache2 mysql-server sendmail-bin php php-bz2 php-curl php-gd php-imagick php-intl php-mbstring php-xml php-zip libapache2-mod-php php-mcrypt php-mysql php-imap php-ssh2 clamav clamav-daemon php-gmp python-certbot-apache
 #
 ## Download OwnCloud & unpack
 #
 cd /var/www/html
-sudo rm /var/www/html/index.html
-sudo wget https://download.owncloud.org/community/owncloud-10.0.3.tar.bz2
-sudo bzip2 -d owncloud-10.0.3.tar.bz2
-sudo tar xvf owncloud-10.0.3.tar
-sudo rm owncloud-10.0.3.tar
+rm /var/www/html/index.html
+wget https://download.owncloud.org/community/owncloud-10.0.8.tar.bz2
+bzip2 -d owncloud-10.0.8.tar.bz2
+tar xvf owncloud-10.0.8.tar
+rm owncloud-10.0.8.tar
 cd owncloud
-sudo mv /var/www/html/owncloud/* /var/www/html/owncloud/.??* /var/www/html
+mv /var/www/html/owncloud/* /var/www/html/owncloud/.??* /var/www/html
 cd ..
-sudo rmdir owncloud
+rmdir owncloud
 #
 ## Run CertBot install script
 #
-sudo certbot --apache
+certbot --apache
 #
 ## Lockdown MySQL
 #
-sudo mysql_secure_installation
+mysql_secure_installation
 #
 ## Change directory permissions for webroot
 #
-sudo chown -R www-data:www-data /var/www
+chown -R www-data:www-data /var/www
 #
 ## Make data directory outside of webroot
 #
-sudo mkdir /home/cloudshare
-sudo chown -R www-data:www-data /home/cloudshare
+mkdir /home/cloudshare
+chown -R www-data:www-data /home/cloudshare
 #
 ## MySQL Stuff
 # mysql -u root -p
@@ -62,7 +62,7 @@ sudo chown -R www-data:www-data /home/cloudshare
 #
 ## Enable cron.php
 #
-sudo crontab -u www-data -e
+crontab -u www-data -e
 #
 # */15  *  *  *  * php -f /var/www/html/cron.php
 #
@@ -74,7 +74,7 @@ crontab -u www-data -l
 #
 ## Then under 'General - Cron' set the system to use cron scheduler.
 ## Enable HSTS
-sudo pico /etc/apache2/sites-available/000-default-le-ssl.conf
+pico /etc/apache2/sites-available/default-ssl.conf
 #
 ## Within the <VirtualHost*:443> entry add:
 #
@@ -82,5 +82,5 @@ sudo pico /etc/apache2/sites-available/000-default-le-ssl.conf
 #   Header always set Strict-Transport-Security "max-age=15768000; includeSubDomains"
 # </IfModule>
 #
-sudo a2enmod headers
-sudo service apache2 restart
+a2enmod headers
+service apache2 restart
