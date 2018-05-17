@@ -5,15 +5,45 @@ sudo su
 apt-get update && apt-get upgrade && apt-get dist-upgrade
 #
 # Dependencies
-apt-get install php-xml php-cgi php-cli php-mysql php-mbstring php-gd php-curl php-zip
-# Choose LEMP or LAMP stack - We'll go with LEMP for now
+apt-get install php-xml php-cgi php-cli php-mysql php-mbstring php-gd php-curl php-zip php-fpm unzip
 #
-# LEMP stack
-apt-get install mariadb-server nginx php-fpm php-mysql
+# LAMP stack
+apt-get install mariadb-server apache2
 #
+# Apache FastCGI
+cd /tmp && wget http://mirrors.kernel.org/ubuntu/pool/multiverse/liba/libapache-mod-fastcgi/libapache2-mod-fastcgi_2.4.7~0910052141-1.2_amd64.deb
+dpkg -i libapache2-mod-fastcgi_2.4.7~0910052141-1.2_amd64.deb
+a2enmod fastcgi
+a2enmod proxy_fcgi
+#
+# Edit /etc/apache2/mods-enabled/fastcgi.conf
+#
+# <IfModule mod_fastcgi.c>
+#   AddHandler php7-fcgi-sites .php
+#   Action php7-fcgi-sites /php7-fcgi-sites
+#   Alias /php7-fcgi-sites /usr/lib/cgi-bin/php7-fcgi-sites
+#  FastCgiExternalServer /usr/lib/cgi-bin/php7-fcgi-sites -idle-timeout 60 -socket /var/run/php/php7.2-fpm.sock -pass-header Authorization
+# 
+#   <Directory /usr/lib/cgi-bin>
+#     Require all granted
+#   </Directory>
+# </IfModule>
+#
+# Stop directory listing
+sed -i "s/Options Indexes FollowSymLinks/Options FollowSymLinks/" /etc/apache2/apache2.conf
+#
+# Enable services
 # Version dependant so check with 'php --version' and change as required
 systemctl start php7.2-fpm
 systemctl enable php7.2-fpm
+# systemctl stop apache2.service
+# systemctl start apache2.service
+# systemctl restart apache2.service
+systemctl enable apache2.service
+# systemctl stop mariadb.service
+# systemctl start mariadb.service
+# systemctl restart mariadb.service
+systemctl enable mariadb.service
 #
 # Now secure DB
 mysql_secure_installation
@@ -33,3 +63,19 @@ CREATE USER `next_dba`@`localhost` IDENTIFIED BY 'your_password';
 GRANT ALL ON nextcloud_db.* TO `next_dba`@`localhost`;
 FLUSH PRIVILEGES;
 exit;
+#
+# Edit /etc/php/fpm/php.ini
+#
+# file_uploads = On
+# allow_url_fopen = On
+# memory_limit = 128M -> 256M
+# upload_max_file_size = 2M -> 100M
+# display_errors = Off
+# date.timezone = America/Chicago -> Europe/London
+#
+cd /tmp && wget https://download.nextcloud.com/server/releases/nextcloud-13.0.2.zip
+unzip next*
+cp -r ./nextcloud/* /var/www/html
+chown -R www-data:www-data /var/www/html
+#
+# Continue install via web-browser!
