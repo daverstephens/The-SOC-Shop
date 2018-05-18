@@ -82,6 +82,8 @@ exit;
 cd /tmp && wget https://download.nextcloud.com/server/releases/nextcloud-13.0.2.zip
 unzip next*
 cp -r ./nextcloud/* /var/www/html
+mv .user.ini /var/www/html/.user.ini
+mv .htaccess /var/www/html/.htaccess
 chown -R www-data:www-data /var/www/html
 #
 # Create data directory outside of www root
