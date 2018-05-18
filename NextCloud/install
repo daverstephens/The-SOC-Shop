@@ -1,11 +1,16 @@
 #
 # Install base of Ubuntu 18.04 minimal - Just select SSH as a package
 #
+## Add CertBot repo's
+#
+apt-get install software-properties-common
+add-apt-repository ppa:certbot/certbot
+#
 sudo su
 apt-get update && apt-get upgrade && apt-get dist-upgrade
 #
 # Dependencies
-apt-get install php-xml php-cgi php-cli php-mysql php-mbstring php-gd php-curl php-zip php-fpm unzip
+apt-get install php-xml php-cgi php-cli php-mysql php-mbstring php-gd php-curl php-zip php-fpm unzip certbot python-certbot-apache
 #
 # LAMP stack
 apt-get install mariadb-server apache2
@@ -15,6 +20,7 @@ cd /tmp && wget http://mirrors.kernel.org/ubuntu/pool/multiverse/liba/libapache-
 dpkg -i libapache2-mod-fastcgi_2.4.7~0910052141-1.2_amd64.deb
 a2enmod fastcgi
 a2enmod proxy_fcgi
+a2enmod actions
 #
 # Edit /etc/apache2/mods-enabled/fastcgi.conf
 #
@@ -77,5 +83,12 @@ cd /tmp && wget https://download.nextcloud.com/server/releases/nextcloud-13.0.2.
 unzip next*
 cp -r ./nextcloud/* /var/www/html
 chown -R www-data:www-data /var/www/html
+#
+# Create data directory outside of www root
+mkdir /home/datashare
+chown -R www-data:www-data /home/datashare
+#
+# Run certbot to secure https
+certbot --apache
 #
 # Continue install via web-browser!
