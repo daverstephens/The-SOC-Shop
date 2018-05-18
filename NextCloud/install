@@ -92,5 +92,16 @@ chown -R www-data:www-data /home/datashare
 #
 # Run certbot to secure https
 certbot --apache
+## Enable HSTS
+pico /etc/apache2/sites-available/default-ssl.conf
+#
+## Within the <VirtualHost*:443> entry add:
+#
+#    <IfModule mod_headers.c>
+#      Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains"
+#    </IfModule>
+#
+a2enmod headers
+service apache2 restart
 #
 # Continue install via web-browser!
