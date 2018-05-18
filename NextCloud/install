@@ -64,7 +64,7 @@ GRANT ALL ON nextcloud_db.* TO `next_dba`@`localhost`;
 FLUSH PRIVILEGES;
 exit;
 #
-# Edit /etc/php/fpm/php.ini
+# Edit /etc/php/7.2/fpm/php.ini
 #
 # file_uploads = On
 # allow_url_fopen = On
