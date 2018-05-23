@@ -1,0 +1,28 @@
+sudo su
+apt update && apt upgrade -y
+#
+# Install Clam AV
+apt install clamav clamav-freshclam clamav-daemon -y
+#
+# Update ClamAV
+service clamav-freshclam stop
+freshclam
+service clamav-freshclam start
+#
+# Config changes
+cp /etc/clamav/clamd.conf /etc/clamav/clamd.conf.bak
+egrep "*MaxDirectoryRecursion.*|*MaxFileSize.*|*PCREMaxFileSize.*|*StreamMaxLength.*" /etc/clamav/clamd.conf
+sed -i "s/MaxFileSize.*/MaxFileSize 50M/" /etc/clamav/clamd.conf
+sed -i "s/MaxDirectoryRecursion.*/MaxDirectoryRecursion 25/" /etc/clamav/clamd.conf
+sed -i "s/PCREMaxFileSize.*/PCREMaxFileSize 50M/" /etc/clamav/clamd.conf
+sed -i "s/StreamMaxLength.*/StreamMaxLength 50M/" /etc/clamav/clamd.conf
+service clamav-freshclam restart && service clamav-daemon restart
+#
+# Install NextCloud App
+cd /var/www/html/apps
+wget https://github.com/nextcloud/files_antivirus/archive/master.zip
+unzip master &&  mv files_antivirus-master files_antivirus && rm master.zip
+chown -R www-data:www-data /var/www/html
+#
+# Now login to NextCloud and enable the app under Apps/Tools
+# Then navigate to Administration/Security and set 'stream length' to 52428800 and set the scanner to delete infected files.
