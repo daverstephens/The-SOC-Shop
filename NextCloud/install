@@ -67,6 +67,8 @@ mysql -u root -p
 CREATE DATABASE `nextcloud_db`;
 CREATE USER `next_dba`@`localhost` IDENTIFIED BY 'your_password';
 GRANT ALL ON nextcloud_db.* TO `next_dba`@`localhost`;
+# Revoke ability for root to login locally without a password
+UPDATE mysql.user SET plugin = '' WHERE user = 'root' AND host = 'localhost';
 FLUSH PRIVILEGES;
 exit;
 #
