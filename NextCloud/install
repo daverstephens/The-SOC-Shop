@@ -1,6 +1,11 @@
 #
 # Install base of Ubuntu 18.04 minimal - Just select SSH as a package
 #
+# If you are running on VMWare ESXi then there appears to be a bug that causes the V/M to lock-up when
+# you run app updates through the browser (under 6.5.0) - Update to ESXi-6.5.0-20180502001-standard to resolve.
+#
+# https://esxi-patches.v-front.de/ESXi-6.5.0.html
+#
 ## Add CertBot repo's
 #
 apt-get install software-properties-common
