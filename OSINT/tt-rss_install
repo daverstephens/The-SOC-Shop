@@ -1,0 +1,51 @@
+#
+# Tiny-RSS install
+#
+# Start from Ubuntu 18.04 Server Minimal - Include SSH & LAMP during install options
+#
+# Install all dependencies
+#
+sudo apt-get install git curl postgresql php7.2 php7.2-cli php7.2-curl php7.2-pgsql php7.2-json php7.2-mbstring php7.2-intl php7.2-gd php7.2-xml php7.2-opcache apache2
+#
+cd /var/www/html
+sudo git clone https://tt-rss.org/git/tt-rss.git tt-rss
+sudo systemctl restart apache2
+
+sudo -u postgres psql
+postgres=# CREATE USER "www-data" WITH PASSWORD 'yourpasshere';
+postgres=# CREATE DATABASE ttrss WITH OWNER "www-data";
+postgres=# \quit
+#
+# /etc/postgresql/10/main/postgresql.conf
+#
+# Uncomment listen_addresses = localhost
+
+
+sudo chown -R www-data:www-data tt-rss
+cd ./tt-rss
+sudo chmod -R 777 cache/images
+sudo chmod -R 777 cache/upload
+sudo chmod -R 777 cache/export
+sudo chmod -R 777 feed-icons
+sudo chmod -R 777 lock
+#
+# Edit php.ini to enable use of CURL
+#
+sudo pico /etc/php/7.2/apache2/php.ini
+#
+# Enable auto-pull of feed updates
+#
+sudo pico /etc/systemd/system/tt-rss.service
+#
+#
+# [Unit]
+# Description=ttrss_backend
+# After=network.target postgresql.service
+#
+# [Service]
+# User=www-data
+# ExecStart=/var/www/html/tt-rss/update_daemon2.php
+#
+# [Install]
+# WantedBy=multi-user.target
+sudo systemctl enable --now tt-rss.service
